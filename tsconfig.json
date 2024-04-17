@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "types": [
       "node",
-      "./src/vite-env.d.ts"
+      "./src/vite-env.d.ts",
+      "vite/client"
     ],
     "baseUrl": ".",
     // root of your "paths" below. Required if "paths" is defined
