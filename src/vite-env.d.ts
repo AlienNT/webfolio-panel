@@ -45,3 +45,8 @@ interface Contact extends DefaultInterface {
   type: 'social' | 'email' | 'phone',
   value: string | number,
 }
+interface ImportMeta {
+  env: {
+    VITE_API_URL?: string
+  }
+}
