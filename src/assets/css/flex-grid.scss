@@ -1,0 +1,23 @@
+.flex-padding {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.container {
+  @extend .flex-padding;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col {
+  @extend .flex-padding;
+  flex: auto;
+}
