@@ -8,6 +8,8 @@
   </div>
 </template>
 
-<style scoped lang="scss">
-
+<style lang="scss">
+.section {
+  padding-top: 30px;
+}
 </style>
