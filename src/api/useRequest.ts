@@ -1,14 +1,14 @@
-import axios, { AxiosProgressEvent } from 'axios'
+import axios, { AxiosError, AxiosProgressEvent } from 'axios'
 import apiConfig from '@/configs/apiConfig.ts'
 import { computed, reactive } from 'vue'
 
 interface Request {
-  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE',
+  method?: Method,
   url: string,
   data?: any
 }
 
-export function useRequest() {
+export function useRequest({ isLoadDelay = 200 }: IsLoadDelay) {
   const state = reactive({
     abortController: <AbortController>{},
     uploadProgress: <AxiosProgressEvent>{},
@@ -30,12 +30,12 @@ export function useRequest() {
     state.abortController.abort()
   }
 
-  async function request(
+  async function request<T>(
     {
       method = 'GET',
       url,
       data
-    }: Request) {
+    }: Request): Promise<T> {
     state.isLoad = true
 
     return axios({
@@ -43,8 +43,26 @@ export function useRequest() {
       signal: state.abortController.signal,
       method,
       url,
-      data
-    }).finally(() => state.isLoad = false)
+      data,
+      onUploadProgress(progressEvent: AxiosProgressEvent) {
+        state.uploadProgress = progressEvent
+      },
+      onDownloadProgress(progressEvent: AxiosProgressEvent) {
+        state.downloadProgress = progressEvent
+      }
+    })
+      .then(res => {
+        return res.data?.data
+      })
+      .catch((err: AxiosError) => {
+        console.log('err', err)
+        const status = err.response?.status
+        if (status && status === 401) {
+          localStorage.removeItem('token')
+        }
+        throw new Error()
+      })
+      .finally(() => setTimeout(() => state.isLoad = false, isLoadDelay))
   }
 
   return {
