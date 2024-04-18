@@ -26,15 +26,10 @@ export function useSkills() {
     index > -1 ? state.skills[index] = skill : state.skills.push(skill)
   }
 
-  async function fetchSkills() {
-    return ''
-  }
-
   return {
     skills,
     skillGetter,
     setSkills,
     setSkill,
-    fetchSkills
   }
 }
