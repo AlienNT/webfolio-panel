@@ -1,4 +1,5 @@
 type Id = string
+type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 
 interface DefaultInterface {
   _id: Id
@@ -29,7 +30,7 @@ interface Profile extends DefaultInterface {
 
 interface Skill extends DefaultInterface {
   title: string
-  active?: string
+  active?: boolean
   image: string
 }
 
@@ -45,8 +46,13 @@ interface Contact extends DefaultInterface {
   type: 'social' | 'email' | 'phone',
   value: string | number,
 }
+
 interface ImportMeta {
   env: {
     VITE_API_URL?: string
   }
+}
+
+interface IsLoadDelay {
+  isLoadDelay?: number
 }
