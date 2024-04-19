@@ -32,5 +32,7 @@ const emit = defineEmits<{
 </template>
 
 <style scoped lang="scss">
-
+.button {
+  cursor: pointer;
+}
 </style>
