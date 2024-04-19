@@ -15,3 +15,8 @@ img, label, input {
 a {
   text-decoration: none;
 }
+button {
+  box-shadow: none;
+  outline: none;
+  display: flex;
+}
