@@ -11,13 +11,16 @@ const router = createRouter({
 router.beforeEach((to) => {
   const isAuth = getIsAuth()
 
-  if (isAuth) return true
-
-  // if (!isAuth && from.name === 'auth') {
-  //   return false
-  // }
-  if (!isAuth && to.name !== 'auth') {
-    return { name: 'auth' }
+  if (!isAuth) {
+    if (to.name !== 'auth') {
+      return { name: 'auth' }
+    }
+  } else {
+    if (to.name === 'auth') {
+      return false
+    }
+    if (to.path === '/')
+      return { name: 'profile' }
   }
 })
 
