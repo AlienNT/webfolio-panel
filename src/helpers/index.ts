@@ -7,6 +7,7 @@ export function getIsAuth(): boolean {
   return !!token
 }
 
-export function removeToken() {
-  localStorage.removeItem('token')
+export function checkTokenExpire(token: Token) {
+  const decode = JSON.parse(atob(token.split('.')[1]))
+  return decode.exp * 1000 < new Date().getTime()
 }
