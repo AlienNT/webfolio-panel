@@ -27,15 +27,10 @@ export function useContacts() {
     index > -1 ? state.contacts[index] = contact : state.contacts.push(contact)
   }
 
-  async function fetchContacts() {
-    return ''
-  }
-
   return {
     contacts,
     contactGetter,
     setContacts,
     setContact,
-    fetchContacts
   }
 }
