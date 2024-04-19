@@ -1,5 +1,4 @@
 import { computed, reactive } from 'vue'
-import { NavigationLink } from '@/vite-env'
 
 interface NavigationState {
   navigationList: NavigationLink[]
@@ -7,12 +6,6 @@ interface NavigationState {
 
 const state: NavigationState = reactive({
   navigationList: [
-    {
-      _id: '1',
-      path: '/auth',
-      title: 'auth',
-      label: 'auth'
-    },
     {
       _id: '2',
       path: '/profile',
