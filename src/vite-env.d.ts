@@ -1,4 +1,5 @@
 type Id = string
+type Token = string
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 
 interface DefaultInterface {
@@ -55,4 +56,20 @@ interface ImportMeta {
 
 interface IsLoadDelay {
   isLoadDelay?: number
+}
+
+interface AuthForm {
+  password: string,
+  email: string
+}
+
+interface ApiRequest {
+  data?: T,
+  status: number,
+  errors?: any
+  accessToken?: Token
+}
+
+interface RefreshTokenResponse {
+  accessToken: string
 }
