@@ -1,11 +1,25 @@
 export default {
+  AUTH: {
+    login: {
+      method: <Method>'POST',
+      path: '/login'
+    },
+    logout: {
+      method: <Method>'GET',
+      path: '/logout'
+    },
+    refresh: {
+      method: <Method>'GET',
+      path: '/refresh'
+    }
+  },
   PROFILE: {
     get: {
-      method: 'GET',
+      method: <Method>'GET',
       path: '/profile'
     },
     update: {
-      method: 'PATCH',
+      method: <Method>'PATCH',
       path: '/profile'
     }
   },
