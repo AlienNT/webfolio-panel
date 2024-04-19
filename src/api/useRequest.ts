@@ -1,12 +1,19 @@
 import axios, { AxiosError, AxiosProgressEvent } from 'axios'
 import apiConfig from '@/configs/apiConfig.ts'
+import apiRoutes from '@/api/apiRoutes.ts'
 import { computed, reactive } from 'vue'
+
+import { useAuth } from '@/store/useAuth.ts'
+import { checkTokenExpire } from '@/helpers'
+
 
 interface Request {
   method?: Method,
   url: string,
   data?: any
 }
+
+const { token, setToken } = useAuth()
 
 export function useRequest({ isLoadDelay = 200 }: IsLoadDelay) {
   const state = reactive({
@@ -30,6 +37,20 @@ export function useRequest({ isLoadDelay = 200 }: IsLoadDelay) {
     state.abortController.abort()
   }
 
+  async function apiRequest<T>({ method = 'GET', url, data }: Request): Promise<T> {
+    const isTokenExpire: boolean = token.value ? checkTokenExpire(token.value) : true
+
+    if (isTokenExpire) {
+      await request<RefreshTokenResponse>({
+        method: apiRoutes.AUTH.refresh.method,
+        url: apiRoutes.AUTH.refresh.path
+      }).then((res) => {
+        if (res?.accessToken) setToken(res.accessToken)
+      })
+    }
+    return await request({ method, url, data })
+  }
+
   async function request<T>(
     {
       method = 'GET',
@@ -39,34 +60,33 @@ export function useRequest({ isLoadDelay = 200 }: IsLoadDelay) {
     state.isLoad = true
 
     return axios({
-      baseURL: apiConfig.API_URL,
-      signal: state.abortController.signal,
       method,
       url,
       data,
-      onUploadProgress(progressEvent: AxiosProgressEvent) {
-        state.uploadProgress = progressEvent
+      headers: {
+        Authorization: `Bearer ${token.value}`
       },
-      onDownloadProgress(progressEvent: AxiosProgressEvent) {
-        state.downloadProgress = progressEvent
-      }
+      baseURL: apiConfig.API_URL,
+      signal: state.abortController.signal,
+      withCredentials: true,
+      onUploadProgress: (progressEvent: AxiosProgressEvent) => state.uploadProgress = progressEvent,
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => state.downloadProgress = progressEvent
+    }).then((res) => {
+      return res.data?.data
+
+    }).catch((err: AxiosError) => {
+      const status = err.response?.status
+      if (status && status === 401) localStorage.removeItem('token')
+
+      return err.response?.data
+
+    }).finally(() => {
+      setTimeout(() => state.isLoad = false, isLoadDelay)
     })
-      .then(res => {
-        return res.data?.data
-      })
-      .catch((err: AxiosError) => {
-        console.log('err', err)
-        const status = err.response?.status
-        if (status && status === 401) {
-          localStorage.removeItem('token')
-        }
-        throw new Error()
-      })
-      .finally(() => setTimeout(() => state.isLoad = false, isLoadDelay))
   }
 
   return {
-    request,
+    request: apiRequest,
     cancel,
     uploadProgress,
     downloadProgress,
