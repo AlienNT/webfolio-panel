@@ -23,7 +23,9 @@ export function useSkills() {
     }
     const index = getIndex(state.skills, skill, '_id')
 
-    index > -1 ? state.skills[index] = skill : state.skills.push(skill)
+    if (index > -1) {
+      state.skills[index] = skill
+    }
   }
 
   return {
