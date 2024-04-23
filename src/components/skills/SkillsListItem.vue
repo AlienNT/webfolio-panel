@@ -36,7 +36,7 @@ async function onClick() {
 </template>
 
 <style scoped lang="scss">
-$activeSkillColor: rgba(151, 185, 243, 0.82);
+$activeSkillColor: rgba(151, 185, 243, 0.2);
 .skills-list-item {
   flex: 0 0 100px;
   border-width: 3px;
