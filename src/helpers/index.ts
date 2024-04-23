@@ -21,3 +21,11 @@ interface SetProperty {
 export function setCssVar({ name, value, unit = 'px' }: SetProperty) {
   document.documentElement.style.setProperty(name, value + (unit || ''))
 }
+
+export function formattedDate(date: string | Date): { date: string, time: string } {
+  const readDate = new Date(date)
+  return {
+    date: readDate.toLocaleDateString(),
+    time: readDate.toLocaleTimeString()
+  }
+}
