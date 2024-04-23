@@ -3,7 +3,12 @@ type Token = string
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 
 interface DefaultInterface {
-  _id: Id
+  readonly _id: Id
+}
+
+interface ResponseDocument extends DefaultInterface{
+  readonly updatedAt?: string | Date
+  readonly createdAt?: string | Date
 }
 
 interface NavigationLink extends DefaultInterface {
@@ -24,25 +29,25 @@ interface FirstName extends LanguageLocales {
 interface LastName extends LanguageLocales {
 }
 
-interface Profile extends DefaultInterface {
+interface Profile extends ResponseDocument {
   firstName: FirstName
   lastName: LastName
 }
 
-interface Skill extends DefaultInterface {
+interface Skill extends ResponseDocument {
   title: string
   active?: boolean
   image: string
 }
 
-interface Work extends DefaultInterface {
+interface Work extends ResponseDocument {
   image?: string,
   path: string,
   codePath: string,
   chips?: string
 }
 
-interface Contact extends DefaultInterface {
+interface Contact extends ResponseDocument {
   title: string,
   type: 'social' | 'email' | 'phone',
   value: string | number,
