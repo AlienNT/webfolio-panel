@@ -34,5 +34,6 @@ const emit = defineEmits<{
 <style scoped lang="scss">
 .button {
   cursor: pointer;
+  font-family: monospace;
 }
 </style>
