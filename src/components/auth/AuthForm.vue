@@ -5,8 +5,8 @@ import { useAuthRequest } from '@/api/requests/useAuthRequest.ts'
 import { useAuth } from '@/store/useAuth.ts'
 
 import VField from '@/components/UI/VField.vue'
-import VButton from '@/components/UI/VButton.vue'
 import Loader from '@/components/UI/Loader.vue'
+import AuthButton from '@/components/auth/AuthButton.vue'
 
 const state = reactive({
   isError: false,
@@ -49,10 +49,12 @@ async function submitHandler() {
       type="password"
       @on-input="(e: string) => state.formFields.password = e"
     />
-    <VButton
+    <AuthButton
+      class="login-button"
       label="login"
       title="login"
       type="submit"
+      @on-click="submitHandler"
     />
     <transition name="fade" appear>
       <div
@@ -83,7 +85,7 @@ async function submitHandler() {
   gap: 15px;
   max-width: 500px;
   margin: auto;
-  background: #446d8a;
+  background: #2b2d30;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -105,5 +107,11 @@ async function submitHandler() {
 .error {
   color: red;
   text-align: center;
+}
+.login-button {
+  flex: none;
+  width: fit-content;
+  justify-self: flex-end;
+  align-self: flex-end;
 }
 </style>
