@@ -17,17 +17,17 @@ const emit = defineEmits(fieldEmits)
 const fieldComponent = computed(() => {
   switch (props.type) {
     case 'email':
-      return defineAsyncComponent(() => import('./fields/EmailField.vue'))
+      return defineAsyncComponent(() => import('@/components/UI/formFields/EmailField.vue'))
     case 'number':
-      return defineAsyncComponent(() => import('./fields/NumberField.vue'))
+      return defineAsyncComponent(() => import('@/components/UI/formFields/NumberField.vue'))
     case 'password':
-      return defineAsyncComponent(() => import('./fields/PasswordField.vue'))
+      return defineAsyncComponent(() => import('@/components/UI/formFields/PasswordField.vue'))
     case 'phone':
-      return defineAsyncComponent(() => import('./fields/PhoneField.vue'))
+      return defineAsyncComponent(() => import('@/components/UI/formFields/PhoneField.vue'))
     case 'text':
-      return defineAsyncComponent(() => import('./fields/TextField.vue'))
+      return defineAsyncComponent(() => import('@/components/UI/formFields/TextField.vue'))
     default:
-      return defineAsyncComponent(() => import('./fields/TextField.vue'))
+      return defineAsyncComponent(() => import('@/components/UI/formFields/TextField.vue'))
   }
 })
 </script>
