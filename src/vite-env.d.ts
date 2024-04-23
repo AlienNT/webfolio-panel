@@ -48,10 +48,12 @@ interface Contact extends DefaultInterface {
   value: string | number,
 }
 
-interface ImportMeta {
-  env: {
-    VITE_API_URL?: string
-  }
+interface ImportMetaEnvCustom extends Readonly<Record<string, string>> {
+  VITE_API_URL?: string
+}
+
+interface ImportMeta extends import('vite/types/importMeta').ImportMeta {
+  readonly env: ImportMetaEnvCustom & import('vite/types/importMeta').ImportMetaEnv
 }
 
 interface IsLoadDelay {
