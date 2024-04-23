@@ -24,6 +24,6 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/contacts',
     name: 'contacts',
-    component: import('@/pages/ContactsPage.vue')
+    component: () => import('@/pages/ContactsPage.vue')
   }
 ]
