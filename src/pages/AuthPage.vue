@@ -14,3 +14,11 @@ import AuthForm from '@/components/auth/AuthForm.vue'
     </PageTemplate>
   </section>
 </template>
+<style scoped lang="scss">
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--vh, 100%);
+}
+</style>
