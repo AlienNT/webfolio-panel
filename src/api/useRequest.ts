@@ -40,7 +40,7 @@ export function useRequest({ isLoadDelay = 200 }: IsLoadDelay) {
   async function apiRequest<T>({ method = 'GET', url, data }: Request): Promise<T> {
     const isTokenExpire: boolean = token.value ? checkTokenExpire(token.value) : true
 
-    if (isTokenExpire) {
+    if (isTokenExpire && url !== apiRoutes.AUTH.login.path) {
       await request<RefreshTokenResponse>({
         method: apiRoutes.AUTH.refresh.method,
         url: apiRoutes.AUTH.refresh.path
