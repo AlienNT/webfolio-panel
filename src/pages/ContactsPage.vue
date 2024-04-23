@@ -2,6 +2,7 @@
 
 import PageTemplate from '@/templates/PageTemplate.vue'
 import Loader from '@/components/UI/Loader.vue'
+import ContactsList from '@/components/contacts/ContactsList.vue'
 
 import { useContacts } from '@/store/useContacts.ts'
 import { useContactsRequest } from '@/api/requests/useContactsRequest.ts'
@@ -25,9 +26,10 @@ onMounted(() => {
     <PageTemplate>
       <template v-slot:content>
         contacts
-        <div v-if="contacts.length" class="contacts-list">
-          {{ contacts }}
-        </div>
+        <ContactsList
+          v-if="contacts.length"
+          :contacts="contacts"
+        />
         <Loader
           v-if="isLoad"
         />
