@@ -35,12 +35,22 @@ function getValue(e: Event): string {
 <style scoped lang="scss">
 .input {
   all: unset;
-  background: white;
+  background: #1e1f22;
   display: flex;
   flex: 1;
-  padding: 5px 15px;
+  padding: 10px 15px;
   transition: .2s ease;
   border-radius: 5px;
+  width: 100%;
+  color: #c4c4c4;
+  font-family: monospace;
+  font-size: 16px;
+
+  &::placeholder {
+    display: block;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
 
   &:focus {
     &::placeholder {
