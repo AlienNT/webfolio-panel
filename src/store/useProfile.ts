@@ -1,28 +1,20 @@
-import { computed, reactive } from 'vue'
+import { computed, reactive, readonly } from 'vue'
 
-interface ProfileState {
-  profile: Profile | null
-}
-
-const state: ProfileState = reactive({
-  profile: null
+const state = reactive({
+  profile: <Profile>{}
 })
 
 export function useProfile() {
-  const profile = computed((): Profile | null => {
-    return state.profile
+  const profile = computed(() => {
+    return readonly(state.profile)
   })
 
-  function setProfile (profile: Profile) {
+  function setProfile(profile: Profile) {
     state.profile = profile
   }
 
-  async function fetchProfile() {
-    return ''
-  }
   return {
     profile,
-    setProfile,
-    fetchProfile
+    setProfile
   }
 }
