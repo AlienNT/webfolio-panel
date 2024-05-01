@@ -17,23 +17,18 @@ interface NavigationLink extends DefaultInterface {
   label?: string,
 }
 
-interface LanguageLocales {
-  ru: string,
-  ua: string,
-  en: string
+interface ProfileLocale {
+  firstName: string,
+  lastName?: string,
+  greeting: string
 }
 
-interface FirstName extends LanguageLocales {
+interface Profile extends ResponseDocument{
+  en: ProfileLocale,
+  ru: ProfileLocale,
+  ua: ProfileLocale,
+  image?: string
 }
-
-interface LastName extends LanguageLocales {
-}
-
-interface Profile extends ResponseDocument {
-  firstName: FirstName
-  lastName: LastName
-}
-
 interface Skill extends ResponseDocument {
   title: string
   active?: boolean
