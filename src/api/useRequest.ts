@@ -13,7 +13,7 @@ interface Request {
   data?: any
 }
 
-const { token, setToken } = useAuth()
+const { token, setToken, removeToken } = useAuth()
 
 export function useRequest({ isLoadDelay = 200 }: IsLoadDelay) {
   const state = reactive({
@@ -76,7 +76,7 @@ export function useRequest({ isLoadDelay = 200 }: IsLoadDelay) {
 
     }).catch((err: AxiosError) => {
       const status = err.response?.status
-      if (status && status === 401) localStorage.removeItem('token')
+      if (status && status === 401) removeToken()
 
       return err.response?.data
 
